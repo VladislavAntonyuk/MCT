@@ -17,11 +17,11 @@ on:
 env:
   CurrentSemanticVersionBase: '99.0.0'
   PreviewNumber: ${{ github.run_number }}
-  CurrentSemanticVersion: '${{ env.CurrentSemanticVersionBase }}-preview${{ env.PreviewNumber }}'
-  NugetPackageVersion: '${{ env.CurrentSemanticVersion }}'
-  NugetPackageVersionCamera: '${{ env.CurrentSemanticVersion }}'
-  NugetPackageVersionMediaElement: '${{ env.CurrentSemanticVersion }}'
-  NugetPackageVersionMaps: '${{ env.CurrentSemanticVersion }}'
+  CurrentSemanticVersion: '$CurrentSemanticVersionBase-preview$PreviewNumber'
+  NugetPackageVersion: '$CurrentSemanticVersion'
+  NugetPackageVersionCamera: '$CurrentSemanticVersion'
+  NugetPackageVersionMediaElement: '$CurrentSemanticVersion'
+  NugetPackageVersionMaps: '$CurrentSemanticVersion'
   TOOLKIT_NET_VERSION: '8.0.203'
   LATEST_NET_VERSION: '8.0.x'
   PathToLibrarySolution: 'src/CommunityToolkit.Maui.sln'
