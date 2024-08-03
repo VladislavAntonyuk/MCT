@@ -180,14 +180,14 @@ jobs:
       - name: Build CommunityToolkit.Maui
         run: dotnet build -c Release ${{ env.PathToLibrarySolution }}
 
-      - name: Run CommunityToolkit.Maui.Analyzers.UnitTests
-        run: dotnet test -c Release ${{ env.PathToCommunityToolkitAnalyzersUnitTestCsproj }} --settings ".runsettings" --collect "XPlat code coverage" --logger trx --results-directory ${{ runner.temp }}
+      # - name: Run CommunityToolkit.Maui.Analyzers.UnitTests
+      #   run: dotnet test -c Release ${{ env.PathToCommunityToolkitAnalyzersUnitTestCsproj }}
 
       # - name: Run CommunityToolkit.Maui.UnitTests
       #   run: dotnet test -c Release ${{ env.PathToCommunityToolkitUnitTestCsproj }} --settings ".runsettings" --collect "XPlat code coverage" --logger trx --results-directory ${{ runner.temp }}
 
-      # - name: Run CommunityToolkit.Maui.UnitTests
-      #   run: dotnet test -c Release ${{ env.PathToLibrarySolution }} --settings ".runsettings" --collect "XPlat code coverage" --logger trx --results-directory ${{ runner.temp }}
+      - name: Run CommunityToolkit.Maui.UnitTests
+        run: dotnet test -c Release ${{ env.PathToLibrarySolution }} --settings ".runsettings" --collect "XPlat code coverage" --logger trx --results-directory ${{ runner.temp }}
 
       - name: Publish Test Results
         if: runner.os == 'Windows'
@@ -195,12 +195,6 @@ jobs:
         with:
           name: Test Results
           path: ${{ runner.temp }}/**/*.trx
-
-      - name: Publish Code Coverage Results
-        if: runner.os == 'Windows'
-        uses: codecov/codecov-action@v2
-        with:
-          files: ${{ runner.temp }}/**/coverage.cobertura.xml
 
       - name: Pack CommunityToolkit.Maui.Core NuGet
         run: dotnet pack -c Release ${{ env.PathToCommunityToolkitCoreCsproj }} -p:PackageVersion=${{ env.NugetPackageVersion }}
@@ -220,10 +214,10 @@ jobs:
       - name: Check Dependencies
         if: runner.os == 'Windows'
         run: |
-          dotnet list package --include-transitive
-          dotnet list package --vulnerable --include-transitive
+          dotnet list ${{ env.PathToLibrarySolution }} package --include-transitive
+          dotnet list ${{ env.PathToLibrarySolution }} package --vulnerable --include-transitive
           if ($LastExitCode -ne 1) {
-            dotnet list package --vulnerable --include-transitive
+            dotnet list ${{ env.PathToLibrarySolution }} package --vulnerable --include-transitive
             exit 1
           }
 
@@ -233,3 +227,10 @@ jobs:
           source=".\\src"
           filter="nupkg"
           Get-ChildItem -Path $source -Recurse | Where-Object { $_.Extension -match $filter } | Copy-Item -Destination "${{ github.workspace }}/nuget"
+
+      - name: Publish Packages
+        if: runner.os == 'Windows'
+        uses: actions/upload-artifact@v3
+        with:
+          name: Packages
+          path: ${{ github.workspace }}/nuget
