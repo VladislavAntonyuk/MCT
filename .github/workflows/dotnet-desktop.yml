@@ -173,6 +173,7 @@ jobs:
           source=".\\src"
           filter="nupkg"
           Get-ChildItem -Path $source -Recurse | Where-Object { $_.Extension -match $filter } | Copy-Item -Destination "${{ github.workspace }}/nuget"
+        shell: pwsh
 
       - name: Publish Packages
         if: runner.os == 'Windows'
