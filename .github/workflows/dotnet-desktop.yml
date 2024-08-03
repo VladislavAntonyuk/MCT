@@ -178,7 +178,7 @@ jobs:
       #   run: dotnet build -c Release ${{ env.PathToCommunityToolkitSourceGeneratorsInternalCsproj }}
 
       - name: Restore CommunityToolkit.Maui
-        run: dotnet restore -c Release ${{ env.PathToLibrarySolution }}
+        run: dotnet restore ${{ env.PathToLibrarySolution }}
 
       - name: Check Dependencies
         if: runner.os == 'Windows'
