@@ -153,35 +153,41 @@ jobs:
       - name: Display dotnet info
         run: dotnet --info
 
-      - name: Build CommunityToolkit.Maui.Analyzers
-        run: dotnet build -c Release ${{ env.PathToCommunityToolkitAnalyzersCsproj }}
+      # - name: Build CommunityToolkit.Maui.Analyzers
+      #   run: dotnet build -c Release ${{ env.PathToCommunityToolkitAnalyzersCsproj }}
 
-      - name: Build CommunityToolkit.Maui.Analyzers.CodeFixes
-        run: dotnet build -c Release ${{ env.PathToCommunityToolkitAnalyzersCodeFixCsproj }}
+      # - name: Build CommunityToolkit.Maui.Analyzers.CodeFixes
+      #   run: dotnet build -c Release ${{ env.PathToCommunityToolkitAnalyzersCodeFixCsproj }}
 
-      - name: Build CommunityToolkit.Maui.Camera.Analyzers
-        run: dotnet build -c Release ${{ env.PathToCommunityToolkitCameraAnalyzersCsproj }}
+      # - name: Build CommunityToolkit.Maui.Camera.Analyzers
+      #   run: dotnet build -c Release ${{ env.PathToCommunityToolkitCameraAnalyzersCsproj }}
 
-      - name: Build CommunityToolkit.Maui.Camera.Analyzers.CodeFixes
-        run: dotnet build -c Release ${{ env.PathToCommunityToolkitCameraAnalyzersCodeFixCsproj }}
+      # - name: Build CommunityToolkit.Maui.Camera.Analyzers.CodeFixes
+      #   run: dotnet build -c Release ${{ env.PathToCommunityToolkitCameraAnalyzersCodeFixCsproj }}
 
-      - name: Build CommunityToolkit.Maui.MediaElement.Analyzers
-        run: dotnet build -c Release ${{ env.PathToCommunityToolkitMediaElementAnalyzersCsproj }}
+      # - name: Build CommunityToolkit.Maui.MediaElement.Analyzers
+      #   run: dotnet build -c Release ${{ env.PathToCommunityToolkitMediaElementAnalyzersCsproj }}
 
-      - name: Build CommunityToolkit.Maui.MediaElement.Analyzers.CodeFixes
-        run: dotnet build -c Release ${{ env.PathToCommunityToolkitMediaElementAnalyzersCodeFixCsproj }}
+      # - name: Build CommunityToolkit.Maui.MediaElement.Analyzers.CodeFixes
+      #   run: dotnet build -c Release ${{ env.PathToCommunityToolkitMediaElementAnalyzersCodeFixCsproj }}
 
-      - name: Build CommunityToolkit.Maui.SourceGenerators
-        run: dotnet build -c Release ${{ env.PathToCommunityToolkitSourceGeneratorsCsproj }}
+      # - name: Build CommunityToolkit.Maui.SourceGenerators
+      #   run: dotnet build -c Release ${{ env.PathToCommunityToolkitSourceGeneratorsCsproj }}
         
-      - name: Build CommunityToolkit.Maui.SourceGenerators.Internals
-        run: dotnet build -c Release ${{ env.PathToCommunityToolkitSourceGeneratorsInternalCsproj }}
+      # - name: Build CommunityToolkit.Maui.SourceGenerators.Internals
+      #   run: dotnet build -c Release ${{ env.PathToCommunityToolkitSourceGeneratorsInternalCsproj }}
 
-      - name: Run CommunityToolkit.Maui.Analyzers.UnitTests
-        run: dotnet test -c Release ${{ env.PathToCommunityToolkitAnalyzersUnitTestCsproj }}
+      - name: Build CommunityToolkit.Maui
+        run: dotnet build -c Release ${{ env.PathToLibrarySolution }}
+
+      # - name: Run CommunityToolkit.Maui.Analyzers.UnitTests
+      #   run: dotnet test -c Release ${{ env.PathToCommunityToolkitAnalyzersUnitTestCsproj }}
+
+      # - name: Run CommunityToolkit.Maui.UnitTests
+      #   run: dotnet test -c Release ${{ env.PathToCommunityToolkitUnitTestCsproj }} --settings ".runsettings" --collect "XPlat code coverage" --logger trx --results-directory ${{ runner.temp }}
 
       - name: Run CommunityToolkit.Maui.UnitTests
-        run: dotnet test -c Release ${{ env.PathToCommunityToolkitUnitTestCsproj }} --settings ".runsettings" --collect "XPlat code coverage" --logger trx --results-directory ${{ runner.temp }}
+        run: dotnet test -c Release ${{ env.PathToLibrarySolution }} --settings ".runsettings" --collect "XPlat code coverage" --logger trx --results-directory ${{ runner.temp }}
 
       - name: Publish Test Results
         if: runner.os == 'Windows'
