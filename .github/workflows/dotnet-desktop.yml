@@ -17,7 +17,7 @@ on:
 env:
   CurrentSemanticVersionBase: '99.0.0'
   PreviewNumber: ${{ github.run_number }}
-  CurrentSemanticVersion: '$CurrentSemanticVersionBase-preview$PreviewNumber'
+  CurrentSemanticVersion: '${{ env.CurrentSemanticVersionBase }}-preview${{ PreviewNumber }}'
   NugetPackageVersion: '$CurrentSemanticVersion'
   NugetPackageVersionCamera: '$CurrentSemanticVersion'
   NugetPackageVersionMediaElement: '$CurrentSemanticVersion'
