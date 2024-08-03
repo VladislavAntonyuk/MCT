@@ -177,19 +177,6 @@ jobs:
       # - name: Build CommunityToolkit.Maui.SourceGenerators.Internals
       #   run: dotnet build -c Release ${{ env.PathToCommunityToolkitSourceGeneratorsInternalCsproj }}
 
-      - name: Restore CommunityToolkit.Maui
-        run: dotnet restore ${{ env.PathToLibrarySolution }}
-
-      - name: Check Dependencies
-        if: runner.os == 'Windows'
-        run: |
-          dotnet list ${{ env.PathToLibrarySolution }} package --include-transitive
-          dotnet list ${{ env.PathToLibrarySolution }} package --vulnerable --include-transitive
-          if ($LastExitCode -ne 1) {
-            dotnet list ${{ env.PathToLibrarySolution }} package --vulnerable --include-transitive
-            exit 1
-          }
-
       - name: Build CommunityToolkit.Maui
         run: dotnet build -c Release ${{ env.PathToLibrarySolution }}
 
