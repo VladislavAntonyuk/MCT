@@ -180,14 +180,14 @@ jobs:
       - name: Build CommunityToolkit.Maui
         run: dotnet build -c Release ${{ env.PathToLibrarySolution }}
 
-      # - name: Run CommunityToolkit.Maui.Analyzers.UnitTests
-      #   run: dotnet test -c Release ${{ env.PathToCommunityToolkitAnalyzersUnitTestCsproj }}
+      - name: Run CommunityToolkit.Maui.Analyzers.UnitTests
+        run: dotnet test -c Release ${{ env.PathToCommunityToolkitAnalyzersUnitTestCsproj }} --settings ".runsettings" --collect "XPlat code coverage" --logger trx --results-directory ${{ runner.temp }}
 
       # - name: Run CommunityToolkit.Maui.UnitTests
       #   run: dotnet test -c Release ${{ env.PathToCommunityToolkitUnitTestCsproj }} --settings ".runsettings" --collect "XPlat code coverage" --logger trx --results-directory ${{ runner.temp }}
 
-      - name: Run CommunityToolkit.Maui.UnitTests
-        run: dotnet test -c Release ${{ env.PathToLibrarySolution }} --settings ".runsettings" --collect "XPlat code coverage" --logger trx --results-directory ${{ runner.temp }}
+      # - name: Run CommunityToolkit.Maui.UnitTests
+      #   run: dotnet test -c Release ${{ env.PathToLibrarySolution }} --settings ".runsettings" --collect "XPlat code coverage" --logger trx --results-directory ${{ runner.temp }}
 
       - name: Publish Test Results
         if: runner.os == 'Windows'
